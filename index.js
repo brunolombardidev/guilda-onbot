@@ -1,19 +1,12 @@
 // Arquivo principal do bot
-require("dotenv").config()
+try {
+  require("dotenv").config()
+} catch (error) {
+  console.log("Arquivo .env não encontrado, usando variáveis de ambiente do sistema")
+}
 const { Client, GatewayIntentBits, Collection } = require("discord.js")
 const { registerCommands } = require("./commands")
 const { PlaylistManager } = require("./playlist")
-
-// Tratamento de erros não capturados
-process.on("unhandledRejection", (error) => {
-  console.error("Erro não tratado:", error)
-})
-
-process.on("uncaughtException", (error) => {
-  console.error("Exceção não capturada:", error)
-  // Não encerre o processo para manter o bot online
-  // process.exit(1);
-})
 
 // Criando uma nova instância do cliente Discord
 const client = new Client({
